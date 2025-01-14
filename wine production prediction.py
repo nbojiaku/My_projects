@@ -1,33 +1,97 @@
 #!/usr/bin/env python
-# coding: utf-8
 
-# In[31]:
 
 
 # load datasets package from scikit-learn
-from sklearn import datasets
-from skimpy import skim
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-
-
-# In[32]:
-
+import matplotlib.pyplot as plt
+import RandomForestClassifier
+import seaborn as sns
+import scipy.stats as stats
+import train_test_split
+import RandomForestClassifier
+import accuracy_score, classification_report
+import cross_val_score
+import RandomForestClassifier
+import GridSearchCV
+import StandardScaler
+import MLPClassifier
+import accuracy_score
+import StandardScaler
+import MLPClassifier
+import accuracy_score
+import MinMaxScaler
+import MLPClassifier
+import accuracy_score
+import tensorflow as tf
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import AgglomerativeClustering
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import MeanShift
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+from tensorflow.keras import layers, models
+from sklearn.neural_network import MLPClassifier
+from sklearn.ensemble import BaggingClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+from tensorflow.keras import layers, models
+from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+import tensorflow as tf
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+from tensorflow.keras import layers, models
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+from sklearn.metrics import accuracy_score, silhouette_score
+import tensorflow as tf
+from tensorflow.keras import layers, model
+from sklearn.preprocessing 
+from sklearn.neural_network 
+from sklearn.metrics 
+from sklearn.preprocessing 
+from sklearn.neural_network 
+from sklearn.metrics 
+from sklearn.neural_network 
+from sklearn.metrics 
+from sklearn.preprocessing 
+from sklearn.ensemble 
+from sklearn.model_selection 
+from sklearn.model_selection 
+from sklearn.ensemble 
+from sklearn.metrics 
+from sklearn.model_selection
+from sklearn import datasets
+from skimpy import skim
+from sklearn.ensemble 
 
 #from sklearn datasets, the desired dataset is loaded
 
 mydata= datasets.load_wine()
 
-
-# In[33]:
-
-
 mydata
-
-
-# In[34]:
 
 
 #This step checks for clases in the dataset
@@ -42,23 +106,10 @@ y = mydata.target
 print("Shape of labels: ", y.shape)
 print("Shape of features: ", X.shape)
 #print("Names of the features: ",mydata['feature_names'])
-
-
-# In[35]:
-
-
 print(mydata.DESCR)
-
-
-# In[36]:
-
 
 # Convert the dataset to a pandas DataFrame
 #mywine_dataset = pd.DataFrame(mydata.data, columns=mydata.feature_names)
-
-
-# In[37]:
-
 
 # Convert the dataset to a pandas DataFrame
 mywine_dataset = pd.DataFrame(mydata.data, columns=mydata.feature_names)
@@ -67,36 +118,15 @@ mywine_dataset['target'] = mydata.target
 # Display the DataFrame
 print("Converted DataFrame:")
 print(mywine_dataset.head())
-
-
-# In[38]:
-
-
 #To generate summary statistics of mywine_dataset
 skim(mywine_dataset)
-
-
-# #Data pre-processing 
-
-# In[39]:
-
-
-#Data pre-processing 
+#Data pre-processing  
 #conduct a check for missing values 
 missing_values = mywine_dataset.isna().sum()
 print("Missing Values:")
 print(missing_values)
 #below results indicates no missing values in the dataset, in your report, state how you would have handled it if there was missing data
-
-
-# In[40]:
-
-
 mywine_dataset.info()
-
-
-# In[41]:
-
 
 # Count the number of occurrences of each target class
 class_counts = mywine_dataset['target'].value_counts()
@@ -107,12 +137,6 @@ plt.xlabel('target Class')
 plt.ylabel('Count')
 plt.title('Distribution of target Variable')
 plt.show()
-
-
-# In[42]:
-
-
-import scipy.stats as stats
 
 #  histogram representation  of each feature and normal distribution probability density function
 mywine_dataset.hist(bins=12, figsize=(22,17))
@@ -131,10 +155,6 @@ for ax in plt.gcf().get_axes():
     
 plt.show()
 
-
-# In[77]:
-
-
 # create boxplots of features with target variable
 fig, axes = plt.subplots(nrows=4, ncols=4, figsize=(20, 20))
 
@@ -146,13 +166,6 @@ for i, column in enumerate(mywine_dataset.columns[:-1]):
     
 plt.tight_layout()
 plt.show()
-
-
-# In[88]:
-
-
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 #Calculate the correlation matrix
 corr = mywine_dataset.corr()
@@ -169,14 +182,9 @@ plt.title(' myWine_dataset variables using Pearson correlation coefficient ')
 #Display the plot
 plt.show()
 
-
-# In[89]:
-
-
 #part of Data Pre processing
 
 #Data Scaling and Splitting
-from sklearn.preprocessing import StandardScaler
 scaler=StandardScaler()
 scaler.fit(X)
 xscaled=scaler.transform(X)
@@ -193,18 +201,12 @@ X_scaled.head()
 #print("Scaled features:")
 #print(X_scaled)
 
-
 # #TASK 1 - Implenting the Random Forest Model
 
-# In[90]:
-
-
-from sklearn.model_selection import train_test_split
 X = mywine_dataset.drop('target', axis=1)
 y = mywine_dataset['target']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=12)
 print(y)
-from sklearn.ensemble import RandomForestClassifier
 
 rfc = RandomForestClassifier()
 rfc = RandomForestClassifier(n_estimators=100)
@@ -214,15 +216,6 @@ from sklearn.metrics import accuracy_score
 
 accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy:", accuracy)
-
-
-# In[96]:
-
-
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report
-from sklearn.model_selection import cross_val_score
-
 # Instantiate and train the Random Forest Classifier
 rfc = RandomForestClassifier(n_estimators=100)
 rfc.fit(X_train, y_train)
@@ -243,13 +236,6 @@ print(report)
 cv_scores = cross_val_score(rfc, X_train, y_train, cv=5)
 print("Cross-validation scores:", cv_scores)
 print("Average Cross-validation score:", cv_scores.mean())
-
-
-# In[91]:
-
-
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import GridSearchCV
 
 # Define the Random Forest classifier
 rf = RandomForestClassifier()
@@ -273,13 +259,6 @@ print(" My Test accuracy: ", grid_search.best_estimator_.score(X_test, y_test))
 
 
 # #TASK 2 MLP
-
-# In[93]:
-
-
-from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import accuracy_score
-
 # Define MLP classifier parameters
 hidden_layer_sizes = (20, 15, 10)
 activation = 'logistic'
@@ -307,13 +286,6 @@ print("The MLP Classifier Accuracy:", accuracy_mlp)
 
 
 # #MLP Using StandardScaler
-
-# In[97]:
-
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import accuracy_score
 
 # Create StandardScaler object
 scaler = StandardScaler()
@@ -346,15 +318,6 @@ y_pred_normalized = mlp_classifier_normalized.predict(X_test_normalized)
 accuracy_normalized = accuracy_score(y_test, y_pred_normalized)
 
 print("Normalized MLP Classifier Accuracy:", accuracy_normalized)
-
-
-# In[50]:
-
-
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import accuracy_score
-
 # Creation of  MinMaxScaler object
 scaler = MinMaxScaler()
 
@@ -387,16 +350,7 @@ accuracy_normalized = accuracy_score(y_test, y_pred_normalized)
 
 print("The Normalized MLP Classifier Accuracy:", accuracy_normalized)
 
-
 # #comparism between RF and MLP
-
-# In[51]:
-
-
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import GridSearchCV
 
 # Define the Random Forest classifier
 rf = RandomForestClassifier()
@@ -464,13 +418,6 @@ print("MLP Test Accuracy: ", grid_search_mlp.best_estimator_.score(X_test, y_tes
 
 # #using bagging as an ensemble method 
 
-# In[83]:
-
-
-from sklearn.neural_network import MLPClassifier
-from sklearn.ensemble import BaggingClassifier
-from sklearn.metrics import accuracy_score
-
 # Define MLP classifier parameters
 mlp_params = {
     'hidden_layer_sizes': (20, 15, 10),
@@ -499,14 +446,6 @@ print("The Bagging MLP Classifier Accuracy:", accuracy_bagging)
 
 # #TASK 3 Deep Convolutional Neural Network
 # #(CNN) 
-
-# In[59]:
-
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score
-import tensorflow as tf
-from tensorflow.keras import layers, models
 
 # Creation of  StandardScaler object
 scaler = StandardScaler()
@@ -544,16 +483,7 @@ print("Test Loss:", test_loss)
 print("Test Accuracy:", test_accuracy)
 
 
-# #Adjustment of the features in CNN Model above
-
-# In[61]:
-
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score
-import tensorflow as tf
-from tensorflow.keras import layers, models
-
+#Adjustment of the features in CNN Model above
 # Create StandardScaler object
 scaler = StandardScaler()
 
@@ -591,15 +521,6 @@ print("Test Accuracy:", test_accuracy)
 
 
 # #advanced technique using LSTM (Long short-term memory)
-
-# In[63]:
-
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score
-import tensorflow as tf
-from tensorflow.keras import layers, models
-
 # Create StandardScaler object
 scaler = StandardScaler()
 lkj0
@@ -636,14 +557,6 @@ print("Test Accuracy:", test_accuracy)
 
 # #hyperparameter optimization
 
-# In[67]:
-
-
-from sklearn.model_selection import GridSearchCV
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score
-import tensorflow as tf
-from tensorflow.keras import layers, models
 
 # Create StandardScaler object
 scaler = StandardScaler()
@@ -699,10 +612,6 @@ print("Test Accuracy: ", accuracy)
 # In[84]:
 
 
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score
-import tensorflow as tf
-from tensorflow.keras import layers, models
 
 # Creation of StandardScaler object
 scaler = StandardScaler()
@@ -744,13 +653,6 @@ print("Test Accuracy:", test_accuracy)
 
 # #Task 4 K-means clustering
 
-# In[86]:
-
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import KMeans
-from sklearn.metrics import accuracy_score
-
 # Creation of StandardScaler object
 scaler = StandardScaler()
 
@@ -767,14 +669,6 @@ print("Cluster Accuracy:", cluster_accuracy)
 
 
 # #Determining the optimum number of clusters
-
-# In[81]:
-
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import KMeans
-import numpy as np
-import matplotlib.pyplot as plt
 
 # Creation of StandardScaler object
 scaler = StandardScaler()
@@ -820,12 +714,7 @@ print("Optimum Number of Clusters:", optimal_clusters)
 
 # #extra feature ---silhouette analysis
 
-# In[85]:
 
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import KMeans
-from sklearn.metrics import accuracy_score, silhouette_score
 
 # Creation of StandardScaler object
 scaler = StandardScaler()
@@ -848,13 +737,6 @@ print("Silhouette Score:", silhouette_avg)
 
 # #Agglomerative Clustering (Hierarchical clustering)
 
-# In[87]:
-
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import AgglomerativeClustering
-from sklearn.metrics import accuracy_score
-
 # Creation of StandardScaler object
 scaler = StandardScaler()
 
@@ -872,13 +754,6 @@ print("Cluster Accuracy:", cluster_accuracy)
 
 # #Mean Shift Clustering
 
-# In[99]:
-
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import MeanShift
-from sklearn.metrics import accuracy_score
-
 # Creation of StandardScaler object
 scaler = StandardScaler()
 
@@ -893,8 +768,6 @@ cluster_labels = meanshift.fit_predict(X_normalized)
 cluster_accuracy = accuracy_score(y, cluster_labels)
 print("Cluster Accuracy:", cluster_accuracy)
 
-
-# In[ ]:
 
 
 
